@@ -185,6 +185,27 @@ class deposit extends Component{
         });
     }
 
+    //edit data
+    getstatebyslno= (slno) => {
+        debugger
+        var config = {
+           method: 'post',
+           url: 'master/loanOnDepositParameter/getBySlno',
+           headers: {"content-type": "application/json"},
+           data :{ 
+             "slno":slno,
+           }                 
+       };
+       console.log(config)
+       api(config).then(res=>{
+       this.setState({depositType:res.data.data[0].depositTypeSlno,loan_roi:res.data.data[0].loanRoi,loanondeposit_amount:res.data.data[0].loanRate,interest:res.data.data[0].interestCalculation,id:res.data.data[0].slno,editing:true,button:"Update"})
+       console.log(this.state.loan_roi)
+       })
+       .catch(err => {
+           console.log(err)
+       })
+   }
+
 render(){
 return(
 <div style={{backgroundColor:"#eeeeee"}}>
