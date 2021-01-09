@@ -124,12 +124,12 @@ class deposit extends Component{
                     this.setState({editing:false})
                     message.success(res.data.data);
                     console.log(res.data.data)
-                    // setTimeout(function(){window.location.reload(); }, 1000);
-                    // this.getstateList();   
+                    setTimeout(function(){window.location.reload(); }, 1000);
+                   
                 })
                 .catch(err=>{
-                    // message.error(err.response.data.message);
-                    // setTimeout(function(){window.location.reload(); }, 1000);
+                    message.error(err.response.data.message);
+                    setTimeout(function(){window.location.reload(); }, 1000);
                 })
         // }
         // else
@@ -202,7 +202,7 @@ return(
                         <div className="panel-group" style={{backgroundColor:"#fff"}}>
                             <div className="row">
                                 <div className="form-group col-md-12 col-sm-12">
-                                    {/* <form> */}
+                                  
                                         <div className="panel-group" style={{marginBottom: "8px"}}>
                                             <div className="row" style={{padding:"10px"}}>
                                                 <div className="form-group col-md-3 col-sm-3">
@@ -246,7 +246,7 @@ return(
 
                                             </div>
                                         </div>
-                                    {/* </form> */}
+                                  
                                 </div>
                             </div>
                         </div>
