@@ -1,0 +1,21 @@
+.navbar {
+	margin-bottom:-1px;
+    border-radius:0;
+    background-color: #254d88!important;
+}
+#submenu {
+    background-color: #e7e7e7;
+    margin-bottom:20px;
+	min-height:0;
+}
+.navbar-nav{margin:0}
+.collapsing {
+	display:none;
+}
+.bg{
+    background-color: #254d88!important;
+    background: #254d88!important;
+}
+.color{
+    color: white !important;
+}
