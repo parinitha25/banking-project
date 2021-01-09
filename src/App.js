@@ -21,7 +21,7 @@ import Planparameter from './Components/Master/Planparameter';
 import IPaddress from './Components/Master/IPaddress';
 import Deposit from './Components/Master/deposit';
 import Latefeeparameter from './Components/Master/LateFeeparameter';
-
+import SBaccount from './Components/Master/SBaccount';
 import './App.css';
 
 class App extends Component {
@@ -49,6 +49,7 @@ class App extends Component {
             <Route exact path='/planparameter' component={Planparameter}></Route>
             <Route exact path='/loanondeposit' component={Deposit}></Route>
             <Route exact path='/latefee' component={Latefeeparameter}></Route>
+            <Route exact path='/sbaccount' component={SBaccount}></Route>
           </Switch>
           </Router>
 

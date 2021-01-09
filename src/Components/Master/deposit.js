@@ -45,9 +45,9 @@ class deposit extends Component{
         if(this.state.loan_roi === ''){
             errors.loanRoiError='Loan ROI  is required.';
         }
-        else if(!this.state.country.match(/^[a-zA-Z ]+$/)){
-            errors.countryError = "The country name is not correct";
-        }
+        // else if(!this.state.country.match(/^[a-zA-Z ]+$/)){
+        //     errors.countryError = "The country name is not correct";
+        // }
         return Object.keys(errors).length=== 0 ? null : errors;
     }
 

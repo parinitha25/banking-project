@@ -61,7 +61,7 @@ return (
                      <li><a href="./relationship">Relationship</a></li>
                      <li><a href="./share">Share Parameter</a></li>
                      {/* <li><a href="#">Fee Parameter</a></li> */}
-                     {/* <li><a href="#">SB Accounts Parameters</a></li> */}
+                     <li><a href="./sbaccount">SB Accounts Parameters</a></li>
                      {/* <li><a href="#">Plan Parameters</a></li> */}
                      {/* <li><a href="#">Add Prematurity Slabs</a></li> */}
                      <li><a href="./loanondeposit">Loan On Deposite Parameters</a></li>
