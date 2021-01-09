@@ -107,8 +107,6 @@ class deposit extends Component{
 
     handleSubmit=()=>{
         debugger
-        // e.preventDefault()
-     
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
