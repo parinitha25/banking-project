@@ -28,12 +28,13 @@ class ipaddress extends Component{
     }
 
     handleChange=(e)=>{
-        debugger
+         
         this.setState({[e.target.name]:e.target.value})
     }
 
     //handle change for enable button
     handleEnableChange=(e) =>{
+         
         this.setState({
             [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
         });
@@ -41,7 +42,7 @@ class ipaddress extends Component{
 
     // change the country value
     handleChangebranch=(e)=>{
-        debugger
+         
         this.setState({branch:e.target.value})
     }
  
@@ -56,17 +57,14 @@ class ipaddress extends Component{
         }
         else if(!this.state.ipaddress.match(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)){
             errors.ipaddressError = "The IP Address  is not correct";
-            //255.255.255.255
-            //127.0.0.1
-//192.168.1.1
-//192.168.1.255
+            //255.255.255.255,192.168.1.1,127.0.0.1,192.168.1.255
         }
         return Object.keys(errors).length=== 0 ? null : errors;
     }
 
     //create the data
     handleSubmit=()=>{
-        debugger
+         
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -78,12 +76,14 @@ class ipaddress extends Component{
             api.post(`master/ipAddress/create`, params)      
             .then(res =>{     
                 this.setState({editing:false})
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);
             })
             .catch(err=>{
                 console.log(err)
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);
             })
         }
@@ -97,12 +97,14 @@ class ipaddress extends Component{
         }    
         api.post(`master/ipAddress/update`, params)
             .then(res => {      
-                message.success(res.data.data);
-                setTimeout(function(){window.location.reload(); }, 1000);
-                this.getCountryList();		
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                setTimeout(function(){window.location.reload(); }, 1000);	
             })
             .catch(err=>{
-                message.error(err.response.data.message);
+                console.log(err)
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);     
             })
         }
@@ -123,8 +125,8 @@ class ipaddress extends Component{
             console.log(err);
         })
     } 
-       //get branch list
-       getipaddressList = () => {
+    //get branch list
+    getipaddressList = () => {
         var config = {
             method: 'post',
             url: 'master/ipAddress/get',
@@ -138,6 +140,65 @@ class ipaddress extends Component{
             console.log(err);
         })
     } 
+
+    //edit data
+    getipaddressbyslno= (slno) => {
+         
+       var config = {
+           method: 'post',
+           url: 'master/ipAddress/getBySlno',
+           headers: {"content-type": "application/json"},
+           data :{ 
+             "slno":slno,
+           }                 
+       };
+       console.log(config)
+       api(config).then(res=>{
+       this.setState({branch:res.data.data[0].branchSlno,ipaddress:res.data.data[0].ipAddress,id:res.data.data[0].slno,editing:true,button:"Update"})
+       console.log(this.state.ipaddress)
+       })
+       .catch(err => {
+           console.log(err)
+       })
+   }
+    //delete row
+    deletedata=(slno)=> {
+        confirm({
+            title: 'Are you sure delete this list?',
+            icon: <ExclamationCircleOutlined />,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk(){
+                var config = {
+                    method: 'post',
+                    url: 'master/ipAddress/delete',
+                    headers: {"content-type": "application/json"},
+                    data :{ 
+                    "slno":slno,
+                    }
+                };
+                api(config).then(res => {  
+                    console.log(res.data)
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                    setTimeout(function(){window.location.reload(); }, 1000);     
+                })
+                .catch(err=>{
+                    console.log(err);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                    setTimeout(function(){window.location.reload(); }, 1000);   
+                })
+            },
+            onCancel() {
+                console.log("Cancel");
+            }    
+        });
+    }
+
+
+
     render(){
         return(
         <div style={{backgroundColor:"#eeeeee"}}>
@@ -147,7 +208,7 @@ class ipaddress extends Component{
                         <div className="col-md-10 col-sm-10">
                         <h4>Add IP Address</h4>
                         <p style={{backgroundColor:"#d3d3d3",paddingLeft:"10px"}}>Add IP Address</p>
-                        <div className="btnblue heading"><label className="l1">Add IP Address</label></div>
+                        <div className="btnblue heading" style={{width:"140px"}}><label className="l1">Add IP Address</label></div>
                         <div class="panel panel-default" style={{borderTop:"3px solid #3869ae"}}>
                             <div class="panel-body">
                                 <div class="panel-group" style={{backgroundColor:"#fff"}}>
@@ -167,11 +228,11 @@ class ipaddress extends Component{
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-3">
                                                         <label class="control-label" for="ipaddress" style={{fontSize: "16px"}}>IP Address</label> <span style={{color: "red"}}>*</span>	
-                                                        <input class="form-control" id="ipaddress" name="ipaddress" placeholder="Enter IP Address" type="text" value={this.state.ipaddress} onChange={this.handleChange}/>
+                                                        <input class="form-control"  name="ipaddress" placeholder="Enter IP Address" type="text" value={this.state.ipaddress} onChange={this.handleChange}/>
                                                         {this.state.errors && <div style={{color:"red"}}>{this.state.errors.ipaddressError}</div>}  
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-3">
-                                                        <button  class="btn btn-primary" onClick={()=>this.handleSubmit()} class="btn btnblue" style={{width:"100px",borderRadius:"3px",marginRight:"20px",marginLeft:"20px"}}>{this.state.button}</button>
+                                                        <button  class="btn btn-primary" onClick={()=>this.handleSubmit()} class="btn btnblue" style={{width:"100px",borderRadius:"3px",marginRight:"20px",marginLeft:"20px",marginTop:"28px"}}>{this.state.button}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,10 +260,11 @@ class ipaddress extends Component{
                                                         <label className="switch">
                                                             <input type="checkbox" name="isediting"  defaultChecked={data.isActive}  onChange={this.handleEnableChange}/>
                                                             <span className="slider round"></span>    
-                                                        </label></td>
+                                                        </label>
+                                                    </td>
                                                     <td  style={{textAlign:"center"}}>
                                                         <button class="btn w3-white edit-data" id="1">
-                                                            <i class="fa fa-pencil text-primary" style={{color:"blue",fontSize:"20px"}} onClick={(e) => this.getcountrybyslno(data.slno)} ></i>
+                                                            <i class="fa fa-pencil text-primary" style={{color:"blue",fontSize:"20px"}} onClick={(e) => this.getipaddressbyslno(data.slno)} ></i>
                                                         </button>
                                                         <button class="btn w3-white delete-data" id="1">
                                                             <i  class="fa fa-trash text-primary" style={{color:"red",fontSize:"20px"}} onClick={() => this.deletedata(data.slno)}></i>

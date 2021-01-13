@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/Master/state.css';
+
 import api from '../../api/index';
 import 'antd/dist/antd.css';
 import { Modal,message } from 'antd';
@@ -24,7 +25,7 @@ class State extends Component{
     }
 
     validate=()=>{
-        debugger
+         
         const errors={};
         if(this.state.state.trim() === ''){
             errors.stateError='State name is required.';
@@ -50,7 +51,7 @@ class State extends Component{
 
     // change the country value
     handleChangecountry=(e)=>{
-        debugger
+         
         this.setState({country:e.target.value})
     }
  
@@ -66,12 +67,11 @@ class State extends Component{
                 api.post(`master/state/create`, params)      
                 .then(res =>{     
                     this.setState({editing:false})
-                    message.success(res.data.data);
+                    message.success({content: (res.data.data),style: { textAlign: "right" },});
                     setTimeout(function(){window.location.reload(); }, 1000);
-                    this.getstateList();   
                 })
                 .catch(err=>{
-                    message.error(err.response.data.message);
+                    message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
                     setTimeout(function(){window.location.reload(); }, 1000);
                 })
         }
@@ -86,12 +86,12 @@ class State extends Component{
         api.post(`master/state/update`, params)
         .then(res => {      
             console.log(res);
-            message.success(res.data.data);
+            message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
             setTimeout(function(){window.location.reload(); }, 1000);	
         })
         .catch(err=>{
             console.log(err);
-            message.error(err.response.data.message);
+            message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
             setTimeout(function(){window.location.reload(); }, 1000);     
         })
         }
@@ -103,7 +103,7 @@ class State extends Component{
     
     //get state data
     getstateList = () => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/state/get',
@@ -136,7 +136,7 @@ class State extends Component{
 
      //edit data
      getstatebyslno= (slno) => {
-         debugger
+          
         var config = {
             method: 'post',
             url: 'master/state/getBySlno',
@@ -173,12 +173,14 @@ class State extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -206,19 +208,17 @@ class State extends Component{
                                             <div class="panel-group" style={{marginBottom: "8px"}}>
                                                 <div class="row" style={{padding:"10px"}}>
                                                     <div class="form-group col-md-3 col-sm-3">
-                                                        <label class="control-label" for="city">Country<span style={{color:"red"}}>*</span></label>
+                                                        <label class="control-label" for="city">Country</label> <span style={{color:"red"}}>*</span>
                                                         <select class="form-control" name="country"  value={this.state.country}  onChange={this.handleChangecountry}>
                                                             <option>--Select Country--</option>
                                                             {this.state.country_data.map((data) => 
                                                                 <option value={data.slno}>{data.country}</option>             
                                                             )}
                                                         </select>
-                     
                                                         {this.state.errors && <div style={{color:"red"}}>{this.state.errors.countryError}</div>}
-                                                      
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-3">
-                                                        <label class="control-label" for="city">State<span style={{color:"red"}}>*</span></label>
+                                                        <label class="control-label" for="city">State</label> <span style={{color:"red"}}>*</span>
                                                         <input   class="form-control" id="myInput"  placeholder="Enter State" type="text" name="state" value={this.state.state} onChange={this.handleChange}/> 
                                                         {this.state.errors && <div style={{color:"red"}}>{this.state.errors.stateError}</div>}    
                                                     </div>

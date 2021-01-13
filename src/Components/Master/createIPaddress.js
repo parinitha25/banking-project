@@ -31,7 +31,7 @@ class CreateIPaddress extends Component{
     }
     //change the isedit true or false
     handleChangeedit=(e)=>{
-        debugger
+         
         this.setState({isediting:e.target.value})
         this.setState({checked: !this.state.checked});
     }
@@ -120,7 +120,7 @@ class CreateIPaddress extends Component{
 
     //delete data
     deleteRow=(slno)=>{
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/ipAddress/delete',
@@ -141,7 +141,7 @@ class CreateIPaddress extends Component{
 
      //edit data
      getIPaddressbyslno= (slno) => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/ipAddress/getBySlno',

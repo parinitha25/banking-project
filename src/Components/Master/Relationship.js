@@ -16,7 +16,7 @@ class Relationship extends Component{
         button:"ADD",
         relationshipcodeError:'',
         relationshipError:'',
-        isediting:false,
+        isediting:true,
         errors:{}
     }
 
@@ -25,15 +25,15 @@ class Relationship extends Component{
         if(this.state.relationshipCode=== ''){
             errors.relationshipcodeError='Relationship code is required.';
         }
-        else if(!this.state.relationshipCode.match(/^[a-zA-Z]+$/)){
+        else if(!this.state.relationshipCode.match(/^([a-zA-Z-])+$/)){
             errors.relationshipcodeError = "Relationship code is not correct";
         }
-        if(this.state.relationship=== ''){
-            errors.relationshipError='Relationship is required.';
-        }
-        else if(!this.state.relationship.match(/^[a-zA-Z]+$/)){
-            errors.relationshipError = "Relationship  is not correct";
-        }
+        // if(this.state.relationship=== ''){
+        //     errors.relationshipError='Relationship is required.';
+        // }
+        // else if(!this.state.relationship.match(/^([a-zA-Z]*-[a-zA-Z]*)+$/)){
+        //     errors.relationshipError = "Relationship  is not correct";
+        // }
         return Object.keys(errors).length=== 0 ? null : errors;
     }
 
@@ -59,11 +59,13 @@ class Relationship extends Component{
             }   
             api.post(`master/relationship/create`, params)       
             .then(res => {
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);           
             })
             .catch(err=>{
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
             })
         }
@@ -76,11 +78,13 @@ class Relationship extends Component{
             }    
             api.post(`master/relationship/update`, params)
             .then(res => {      
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);			
             })
             .catch(err=>{
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
             })
         }
@@ -125,12 +129,14 @@ class Relationship extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -176,7 +182,7 @@ class Relationship extends Component{
                                                 <div class="panel-group" style={{marginBottom: "8px"}}>
                                                     <div class="row" style={{padding:"10px"}}>
                                                         <div class="form-group col-md-3 col-sm-3">
-                                                            <label class="control-label" for="city">Relationship Code</label>
+                                                            <label class="control-label" for="city">Relationship Code<span style={{color:"red"}}>*</span></label>
                                                             <input  class="form-control"  placeholder="Enter Relationship code" type="text" name="relationshipCode" value={this.state.relationshipCode} onChange={this.handleChange} /> 
                                                             {this.state.errors && <div style={{color:"red"}}>{this.state.errors.relationshipcodeError}</div>} 
                                                         </div>

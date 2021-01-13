@@ -45,7 +45,7 @@ class BOD extends Component{
 
     //create the data
     handleSubmit=()=>{
-        debugger
+         debugger
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -56,18 +56,18 @@ class BOD extends Component{
             api.post(`master/bod/create`, params)      
             .then(res =>{     
                 this.setState({editing:false})
-                message.success(res.data.data);
+                message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload();}, 1000);
             })
             .catch(err=>{
                 console.log(err)
-                // message.error(err.response.data.message);
-                // setTimeout(function(){window.location.reload();}, 1000);
+                message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+                setTimeout(function(){window.location.reload();}, 1000);
             })
         }
         else
         {
-        debugger
+         
         const params = {
             slno:this.state.id,
             bod:this.state.date,
@@ -75,13 +75,12 @@ class BOD extends Component{
         }    
         api.post(`master/bod/update`, params)
             .then(res => {      
-                message.success(res.data.data);
-                setTimeout(function(){window.location.reload(); }, 1000);
-                // this.getCountryList();		
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+                setTimeout(function(){window.location.reload(); }, 1000);		
             })
             .catch(err=>{
-                message.error(err.response.data.message);
-                setTimeout(function(){window.location.reload(); }, 1000);     
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+                 setTimeout(function(){window.location.reload(); }, 1000);     
             })
         }
     }
@@ -108,7 +107,7 @@ class BOD extends Component{
     } 
       //edit data
       getbodbyslno= (slno) => {
-          debugger
+          debugger 
         var config = {
             method: 'post',
             url: 'master/bod/getBySlno',
@@ -117,17 +116,27 @@ class BOD extends Component{
                 "slno":slno,
             }                 
         };
-        api(config).then(res=>{
-            debugger
+        api(config).then(res=>{     
             this.setState({date: res.data.data[0].bod,id:res.data.data[0].slno,editing:true,button:"Update"})
-            var temp= new Date(res.data.data[0].bod).toString()
-            console.log(temp);
-            var temp1=moment(new Date(temp.substr(0, 16))) 
-             
+            // var temp= (res.data.data[0].bod)
+            // console.log(temp)
+            // debugger
+            // var temp1=moment((temp))  
+        
+            var temp= (res.data.data[0].bod)
+            console.log(temp)
+            console.log(typeof(temp))
+            console.log(temp)
+            debugger
+            var temp1=moment((temp.substr(0, 31)+''))  
+            console.log(temp1)
             console.log(typeof(temp1))
-            this.formRef.current.setFieldsValue({ date: temp1 });
-            console.log(this.state.date)
-            
+            // var temp2=moment((temp1).format("DD/MM/YYYY"));
+            var temp2=toString(temp1);
+            this.formRef.current.setFieldsValue({ date: temp2});  
+            console.log(typeof(date))
+            console.log(typeof(temp2))
+            console.log(this.state.date)     
         })
         .catch(err => {
            console.log(err)
@@ -136,7 +145,7 @@ class BOD extends Component{
 
     //delete row
     deletedata=(slno)=> {
-        debugger
+         
         confirm({
             title: 'Are you sure delete this list?',
             icon: <ExclamationCircleOutlined />,
@@ -153,12 +162,14 @@ class BOD extends Component{
                     }
                 };
                 api(config).then(res => {  
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
-                    // message.error(err.response.data.message);
-                    // setTimeout(function(){window.location.reload(); }, 1000);   
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                    setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
             onCancel() {
@@ -168,8 +179,8 @@ class BOD extends Component{
     }
 
     dateChange=(date,dateString)=>{
-        this.setState({ date: moment(dateString).format("MM/DD/YYYY")});
-    
+        debugger
+        this.setState({ date: moment(date).format("DD/MM/YYYY")});
     }
    
     render(){
@@ -192,14 +203,16 @@ class BOD extends Component{
                                                         <div className="form-group col-md-4 col-sm-12">
                                                             <label className="control-label" for="bod">BOD<span style={{color:"red"}}>*</span></label>
                                                             <div className="input-group">
-                                                                 {/* <Form ref={this.formRef} name="date">
+                                                                 <Form ref={this.formRef} name="date">
                                                                     <Form.Item name="date">
                                                                         <DatePicker 
+                                                                            // value={moment(this.state.date)}
+                                                                            format="DD/MM/YYYY"
                                                                             onChange={this.dateChange}
                                                                         />
                                                                     </Form.Item>
-                                                                </Form> */}
-                                                                <input type='date' value={this.state.date} onChange={(date) => this.setState({ date:date })}/>
+                                                                </Form>
+                                                                {/* <input type='date' value={this.state.date} onChange={(date) => this.setState({ date:date })}/> */}
                                                                 {/* // onChange={(date)=>date:date}/> */}
                                                                  {this.state.errors && <div style={{color:"red"}}>{this.state.errors.bodError}</div>}
                                                                 <span className="input-group-btn">

@@ -11,7 +11,7 @@ const { confirm } = Modal;
 class EOD extends Component{
     formRef = React.createRef();
     state={
-        date:new Date(),
+        date:'',
         eod_data:[],
         id:'',
         isediting:true,
@@ -41,14 +41,11 @@ class EOD extends Component{
     }
 
     dateChange=(dateString)=>{
-        debugger
-        // this.setState({date:dateString})
         this.setState({ date: moment(dateString).format("DD/MM/YYYY")});
-      }
+    }
    
     //create the data
     handleSubmit=()=>{
-        debugger
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -59,12 +56,12 @@ class EOD extends Component{
             api.post(`master/eod/create`, params)      
             .then(res =>{     
                 this.setState({editing:false})
-                message.success(res.data.data);
+                message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload();}, 1000);
             })
             .catch(err=>{
                 console.log(err)
-                message.error(err.response.data.message);
+                message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload();}, 1000);
             })
         }
@@ -77,13 +74,15 @@ class EOD extends Component{
         }    
         api.post(`master/eod/update`, params)
             .then(res => {      
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
                 	
             })
             .catch(err=>{
-                // message.error(err.response.data.message);
-                // setTimeout(function(){window.location.reload(); }, 1000);     
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                setTimeout(function(){window.location.reload(); }, 1000);     
             })
         }
     }
@@ -108,8 +107,9 @@ class EOD extends Component{
             console.log(err);
         })
     } 
-      //edit data
-      geteodbyslno= (slno) => {
+
+    //edit data
+    geteodbyslno= (slno) => {
         var config = {
             method: 'post',
             url: 'master/eod/getBySlno',
@@ -119,11 +119,10 @@ class EOD extends Component{
             }                 
         };
         api(config).then(res=>{
-            var temp= new Date(this.state.date).toString()
-            var temp1=moment(new Date(temp.substr(0, 16))) 
-            this.formRef.current.setFieldsValue({ date: temp1 });
             this.setState({date: res.data.data[0].eod,id:res.data.data[0].slno,editing:true,button:"Update"})
-            console.log(this.state.date);
+            var temp= (res.data.data[0].eod).toString()
+            var temp1=moment((temp.substr(1, 31)+ ''))  
+            this.formRef.current.setFieldsValue({ date: temp1});   
         })
         .catch(err => {
            console.log(err)
@@ -132,7 +131,6 @@ class EOD extends Component{
 
     //delete row
     deletedata=(slno)=> {
-        debugger
         confirm({
             title: 'Are you sure delete this list?',
             icon: <ExclamationCircleOutlined />,
@@ -149,11 +147,13 @@ class EOD extends Component{
                     }
                 };
                 api(config).then(res => {  
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -184,15 +184,13 @@ class EOD extends Component{
                                                         <div className="form-group col-md-4 col-sm-12">
                                                             <label className="control-label" for="bod">EOD<span style={{color:"red"}}>*</span></label>
                                                             <div className="input-group">
-                                                                   <Form ref={this.formRef} >
+                                                                <Form ref={this.formRef} >
                                                                     <Form.Item name="date">
-                                                                        <DatePicker 
-                                                                            onChange={this.dateChange}
-                                                                        />
+                                                                        <DatePicker onChange={this.dateChange}/>
                                                                     </Form.Item>
                                                                 </Form>
                                                                 <span className="input-group-btn">
-                                                                <button  class="btn btn-primary" onClick={()=>this.handleSubmit()} class="btn btnblue" style={{width:"100px",borderRadius:"3px",marginRight:"20px",marginLeft:"20px"}}>{this.state.button}</button>
+                                                                    <button  class="btn btn-primary" onClick={()=>this.handleSubmit()} class="btn btnblue" style={{width:"100px",borderRadius:"3px",marginRight:"20px",marginLeft:"20px"}}>{this.state.button}</button>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -207,7 +205,7 @@ class EOD extends Component{
                                                 <tr style={{color:"#3869ae"}}>
                                                     <th style={{textAlign:"center;"}}>Sl<span style={{visibility:"hidden"}}>_</span>No.</th>
                                                     <th style={{textAlign:"Center"}}>EOD</th>
-                                                    <th style={{textAlign:"Center"}}>Enable</th>
+                                                    <th style={{textAlign:"Center"}}>Enable / Disable</th>
                                                     <th style={{textAlign:"center"}}>Action</th>
                                                 </tr>
                                             </thead>

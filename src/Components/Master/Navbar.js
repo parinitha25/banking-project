@@ -24,6 +24,7 @@ return (
             <li className="dropdown">
                 <a href="#" class="dropdown-toggle color " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style={{paddingRight:"0px"}}>Manage Settings <span className="caret"></span></a>
                 <ul className="dropdown-menu">
+                    <li><a href="./userlogin">User Login</a></li>
                      {/* <li><a href="#">Shortcut Settings</a></li>
                      <li><a href="#">Change Password</a></li> */}
                      <li><a href="./financialyear">Financial Year</a></li>
@@ -60,7 +61,7 @@ return (
                 <ul className="dropdown-menu">
                      <li><a href="./relationship">Relationship</a></li>
                      <li><a href="./share">Share Parameter</a></li>
-                     {/* <li><a href="#">Fee Parameter</a></li> */}
+                     <li><a href="./fee">Fee Parameter</a></li>
                      <li><a href="./sbaccount">SB Accounts Parameters</a></li>
                      {/* <li><a href="#">Plan Parameters</a></li> */}
                      {/* <li><a href="#">Add Prematurity Slabs</a></li> */}
@@ -79,8 +80,8 @@ return (
                 <ul className="dropdown-menu">
                      <li><a href="./branch">Branch</a></li>
                      {/* <li><a href="#">View/Update Branch</a></li> */}
-                     {/* <li><a href="#">IP Wise Enable/Disable</a></li>
-                     <li><a href="#">Contact Management</a></li>
+                     <li><a href="./ipenable">IP Wise Enable/Disable</a></li>
+                     {/* <li><a href="#">Contact Management</a></li>
                      <li><a href="#">Create Service Center</a></li>
                      <li><a href="#">View Service Center</a></li>
                      <li><a href="#">Add Service Center User</a></li>

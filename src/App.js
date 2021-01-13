@@ -19,9 +19,12 @@ import Eod from './Components/Master/Eod';
 import Holidaylist from './Components/Master/HolidayList';
 import Planparameter from './Components/Master/Planparameter';
 import IPaddress from './Components/Master/IPaddress';
-import Deposit from './Components/Master/deposit';
+import Deposit from './Components/Master/Loanondeposit';
 import Latefeeparameter from './Components/Master/LateFeeparameter';
 import SBaccount from './Components/Master/SBaccount';
+import Feeparameter from './Components/Master/Feeparameter';
+import UserLogin from './Components/Master/UserLogin';
+import IPenable from './Components/Master/IPEnable';
 import './App.css';
 
 class App extends Component {
@@ -50,9 +53,11 @@ class App extends Component {
             <Route exact path='/loanondeposit' component={Deposit}></Route>
             <Route exact path='/latefee' component={Latefeeparameter}></Route>
             <Route exact path='/sbaccount' component={SBaccount}></Route>
+            <Route exact path='/fee' component={Feeparameter}></Route>
+            <Route exact path='/userlogin' component={UserLogin}></Route>
+            <Route exact path='/ipenable' component={IPenable}></Route>
           </Switch>
-          </Router>
-
+          </Router>         
     </div>
      );
   }

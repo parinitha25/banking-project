@@ -45,7 +45,7 @@ class HolidayList extends Component{
         });
     }
     dateChange=(dateString)=>{
-        debugger
+         
         // this.setState({date:dateString})
         this.setState({ date: moment(dateString).format("YYYY/MM/DD")});
       }
@@ -77,7 +77,7 @@ class HolidayList extends Component{
 
     //create the data
     handleSubmit=async()=>{
-        debugger
+         
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -94,12 +94,14 @@ class HolidayList extends Component{
             api.post(`master/holidayList/create`, params)      
             .then(res =>{     
                 this.setState({editing:false})
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);
             })
             .catch(err=>{
                 console.log(err)
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);
             })
         }catch (errorInfo) {
@@ -118,11 +120,13 @@ class HolidayList extends Component{
         }    
         api.post(`master/holidayList/update`, params)
             .then(res => {      
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);		
             })
             .catch(err=>{
-                // message.error(err.response.data.message);
+                //  message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 // setTimeout(function(){window.location.reload(); }, 1000);     
             })
         }
@@ -192,12 +196,14 @@ class HolidayList extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -208,14 +214,14 @@ class HolidayList extends Component{
     }
 
     dateChange=(dateString)=>{
-        debugger
+         
         // this.setState({date:dateString})
         this.setState({ date: moment(dateString).format("DD/MM/YYYY")});
     }
    
     //edit data
     getholidaylistbyslno= (slno) => {
-        debugger
+         
       var config = {
           method: 'post',
           url: 'master/holidayList/getBySlno',
@@ -255,7 +261,7 @@ class HolidayList extends Component{
                                                         <div className="form-group col-md-3 col-sm-3">
                                                             <label className="control-label" for="bod">Select Branch<span style={{color:"red"}}>*</span></label>
                                                             <select value={this.state.branch} onChange={this.handleChangebranch} className="form-control">
-                                                                <option>Select Branch</option>
+                                                                <option>--Select Branch--</option>
                                                                 {this.state.branch_data.map((data) => 
                                                                     <option value={data.slno}>{data.branchName}</option>
                                                                 )}
@@ -265,7 +271,7 @@ class HolidayList extends Component{
                                                         <div className="form-group col-md-3 col-sm-3">
                                                             <label className="control-label" for="financial_year">Financial Year<span style={{color:"red"}}>*</span></label>
                                                             <select value={this.state.financial_year} onChange={this.handleChangefinancialyear} className="form-control">
-                                                                <option>Select Financial Year</option>
+                                                                <option>--Select Financial Year--</option>
                                                                 {this.state.financialyear_data.map((data) => 
                                                                     <option value={data.slno}>{data.fromYear}-{data.toYear}</option>
                                                                 )}

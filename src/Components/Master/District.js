@@ -28,7 +28,7 @@ class District extends Component{
     }
 
     validate=()=>{
-        debugger
+         
         const errors={};
         if(this.state.district.trim() === ''){
             errors.nameError='District name is required.';
@@ -54,6 +54,7 @@ class District extends Component{
     }
     // create data
     handleSubmit=()=>{
+         
         const errors=this.validate();
         console.log(errors);
         this.setState({errors})
@@ -66,19 +67,17 @@ class District extends Component{
             api.post(`master/district/create`, params)
             .then(res => {
                 this.setState({editing:false})
-                message.success(res.data.data);
+                message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload(); },1000);
-                this.getdistrictList();	
-               
             })
             .catch(res=>{
                 console.log(res);
-                message.error('District name already exists');
+                message.success(res.data.data.message);
                 setTimeout(function(){window.location.reload(); }, 1000);
             })
         }
         else{
-            debugger
+             
             const params = {
                 slno:this.state.id,
                 district:this.state.district,
@@ -88,9 +87,9 @@ class District extends Component{
             api.post(`master/district/update`, params)
             .then(res => {
                 console.log(res);
-                message.success(res.data.data);
-                setTimeout(function(){window.location.reload(); },1000);
-                this.getdistrictList();					
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                setTimeout(function(){window.location.reload(); },1000);			
             })
             .catch(err=>{
                 console.log(err);
@@ -108,7 +107,7 @@ class District extends Component{
 
     //get district data
     getdistrictList = () => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/district/get',
@@ -123,7 +122,7 @@ class District extends Component{
     } 
 
     deletedata=(slno)=> {
-        debugger
+         
         confirm({
             title: 'Are you sure delete this list?',
             icon: <ExclamationCircleOutlined />,
@@ -141,7 +140,8 @@ class District extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
@@ -157,7 +157,7 @@ class District extends Component{
 
     //edit data
     getdistrictbyslno= (slno) => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/district/getBySlno',
@@ -212,9 +212,9 @@ class District extends Component{
                                                         <div class="panel-group" style={{marginBottom: "8px"}}>
                                                             <div class="row" style={{padding:"10px"}}>
                                                                 <div class="form-group col-md-3 col-sm-3">
-                                                                        <label class="control-label" for="city">State<span style={{color:"red"}}>*</span></label>
+                                                                        <label class="control-label" for="city">State</label> <span style={{color:"red"}}>*</span>
                                                                     <select class="form-control" name="state" value={this.state.state} onChange={this.handleChangestate}>
-                                                                        <option>Select State</option>
+                                                                        <option>--Select State--</option>
                                                                             {this.state.state_data.map((data) => 
                                                                                 <option value={data.slno}>{data.state}</option>
                                                                             )}
@@ -222,7 +222,7 @@ class District extends Component{
                                                                         {this.state.errors && <div style={{color:"red"}}>{this.state.errors.stateError}</div>}
                                                                 </div>
                                                                 <div class="form-group col-md-3 col-sm-3">
-                                                                    <label class="control-label" for="city">District<span style={{color:"red"}}>*</span></label>
+                                                                    <label class="control-label" for="city">District</label> <span style={{color:"red"}}>*</span>
                                                                     <input  id="myInput" class="form-control"  placeholder="Enter District" type="text" name="district" value={this.state.district} onChange={this.handleChange}/> 
                                                                     {this.state.errors && <div style={{color:"red"}}>{this.state.errors.nameError}</div>}         
                                                                 </div>

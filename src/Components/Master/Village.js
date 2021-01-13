@@ -35,13 +35,13 @@ class village extends Component{
 
     // change the district value
     handleChangedistrict=(e)=>{
-        debugger
+         
         this.setState({district:e.target.value})
     }
 
     // change the taluk value
     handleChangetaluk=(e)=>{
-        debugger
+         
         this.setState({taluk:e.target.value})
     }
 
@@ -69,7 +69,7 @@ class village extends Component{
     }
     // create data
      handleSubmit=()=>{ 
-         debugger
+          
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -82,12 +82,14 @@ class village extends Component{
             api.post(`master/village/create`, params)       
             .then(res => {
                 console.log(res);
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);         
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);   
             })
         }
@@ -102,12 +104,14 @@ class village extends Component{
             api.post(`master/village/update`, params)
             .then(res => {      
                 console.log(res)
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);				
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);   
             })
         }
@@ -180,12 +184,14 @@ class village extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -244,7 +250,7 @@ class village extends Component{
                                                         <div class="form-group col-md-3 col-sm-3">
                                                             <label class="control-label" for="taluk" style={{fontSize: "16px"}}>Taluk</label> <span style={{color: "red"}}>*</span>
                                                             <select class="form-control" name="taluk"  value={this.state.taluk}  onChange={this.handleChangetaluk}>
-                                                                <option>--Select District--</option>
+                                                                <option>--Select Taluk--</option>
                                                                 {this.state.taluk_data.map((data) => 
                                                                     <option value={data.slno}>{data.taluk}</option>             
                                                                 )}

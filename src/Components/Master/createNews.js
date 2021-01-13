@@ -30,24 +30,24 @@ class CreateNews extends Component{
  
 
     handleChange=(e)=>{ 
-        debugger  
+           
         // this.setState({[e.target.name]:e.target.value})
         const {newsObject}=this.state
         newsObject[e.target.name] = e.target.value
         this.setState({newsObject}) 
     }
     handleChangea=(e)=>{
-       debugger
+        
         this.setState({active:e.target.value})  
     }
     //change the isedit true or false
     handleToggle=(e)=>{
-        debugger
+         
         this.setState({checked:e.target.value});
         this.setState({isediting:e.target.value})
     }
     // handleSubmit=()=>{
-    //     debugger
+    //      
     //     if(this.state.editing===false){   
     //         let t=0;
     //         if(!this.state.name) this.setState({nameError:'State name is required'});
@@ -95,7 +95,7 @@ class CreateNews extends Component{
 
    // create data
     handleSubmit=()=>{  
-       debugger
+        
        if(this.state.editing===false){   
     //     let t=0;
     //     if(!this.state.relationshipobject.relationship && !this.state.relationshipobject.relationshipCode) this.setState({nameError:'Relationship name is required' ,relationshipError:'Relationship code is required'});
@@ -124,7 +124,7 @@ class CreateNews extends Component{
         } 
     // }
         else{
-            debugger
+             
             const params = {
                 slno:this.state.id,
                 title:this.state.newsObject.title,
@@ -192,7 +192,7 @@ class CreateNews extends Component{
 
     // edit data
     getnewsbyslno= (slno) => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/news/getBySlno',
@@ -203,7 +203,7 @@ class CreateNews extends Component{
         };
         console.log(config)
         api(config).then(res=>{
-        debugger
+         
         this.setState({newsObject:res.data.data,edit_data:res.data.data.message,default_value1:res.data.data.title,default_value2:res.data.data.newsDate,default_value3:res.data.data.description,id:res.data.data.slno,editing:true,button:"Update"})
         console.log(res)
         console.log(this.state.default_value1)

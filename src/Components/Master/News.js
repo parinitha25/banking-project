@@ -42,13 +42,14 @@ class News extends Component{
 
     //handle change for enable button
     handleEnableChange=(e) =>{
+         
         this.setState({
             [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
         });
     }
 
     validate=()=>{
-        debugger
+         
         const errors={};
         if(this.state.title === ''){
             errors.titleError='Title is required.';
@@ -66,7 +67,7 @@ class News extends Component{
     }
 
     dateChange=(dateString)=>{
-        debugger
+         
         // this.setState({date:dateString})
         this.setState({ date: moment(dateString).format("DD/MM/YYYY")});
     }
@@ -86,21 +87,23 @@ class News extends Component{
             }       
             api.post(`master/news/create`, params,headers)   
             .then(res => {
-                debugger
+                 
                 console.log(res);
                 this.setState({editing:false})
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);	
             })
             .catch(err=>{
-                debugger
+                 
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
             })
         }
         else{
-            debugger
+             
             const params = {
                 slno:this.state.id,
                 title:this.state.title,
@@ -111,13 +114,15 @@ class News extends Component{
             api.post(`master/news/update`, params)
             .then(res => {
                 console.log(res);
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
                 // this.getnewsList();				
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
                
             })
@@ -162,12 +167,14 @@ class News extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -179,7 +186,7 @@ class News extends Component{
     
     // edit data
     getnewsbyslno= (slno) => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/news/getBySlno',
@@ -209,7 +216,7 @@ class News extends Component{
     render(){
         return(
             <div style={{backgroundColor:"#eeeeee"}}>
-                <div  className="container" style={{marginTop:"75px"}}>
+                <div  className="container-fluid" >
                     <div className="row">
                         <div className="col-md-1 col-sm-1"></div>
                         <div className="col-md-10 col-sm-10 ">

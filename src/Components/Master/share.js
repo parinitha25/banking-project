@@ -28,7 +28,7 @@ class Share extends Component{
     }
 
     validate=()=>{
-        debugger
+         
         const errors={};
         if(this.state.membertype === ''){
             errors.membertypeError='Member  type is required.';
@@ -71,7 +71,7 @@ class Share extends Component{
 
     // change the member type value
     handleChangemembertype=(e)=>{
-        debugger
+         
         this.setState({membertype:e.target.value})
     }
 
@@ -100,12 +100,14 @@ class Share extends Component{
                 api.post(`master/shareParameter/create`, params)      
                 .then(res =>{     
                     this.setState({editing:false})
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);
                     // this.getMembertypeList();   
                 })
                 .catch(err=>{
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);
                 })
             }catch (errorInfo) {
@@ -127,12 +129,14 @@ class Share extends Component{
         api.post(`master/shareParameter/update`, params)
         .then(res => {      
             console.log(res);
-            message.success(res.data.data);
+             message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
             setTimeout(function(){window.location.reload(); }, 1000);	
         })
         .catch(err=>{
             console.log(err);
-            message.error(err.response.data.message);
+             message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
             setTimeout(function(){window.location.reload(); }, 1000);     
         })
         }
@@ -188,6 +192,12 @@ class Share extends Component{
                         editing:true,
                         button:"Update"
                     })
+                    this.formRef.current.setFieldsValue({membertype:res.data.data[0].memberTypeSlno,
+                        persharevalue:res.data.data[0].shareValue,
+                        min_share:res.data.data[0].minShare,
+                        max_share:res.data.data[0].maxShare,
+                        dividend_declared:res.data.data[0].dividendDeclared,
+                        id:res.data.data[0].slno})
         
         })
         .catch(err => {
@@ -214,12 +224,14 @@ class Share extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -239,7 +251,7 @@ class Share extends Component{
                         <div className="col-md-10 col-sm-10 res">
                             <h4>Share Parameter</h4>
                             <p style={{backgroundColor:"#d3d3d3",paddingLeft:"10px"}}>Share Parameter</p>
-                            <div className="btnblue heading">
+                            <div className="btnblue heading" style={{width:"140px"}}>
                                 <label className="l1">Share Parameter</label>
                             </div>
                             <div class="panel panel-default" style={{borderTop:"3px solid #3869ae"}}>
@@ -251,7 +263,7 @@ class Share extends Component{
                                                     <div class="row" style={{padding:"10px"}}>
                                                         <div class="form-group col-md-3 col-sm-3">
                                                             <label class="control-label" for="branch">Member Type</label>
-                                                            <select class="form-control" name="share"  value={this.state.membertype}  onChange={this.handleChangemembertype}>
+                                                            <select class="form-control" name="membertype"  value={this.state.membertype}  onChange={this.handleChangemembertype}>
                                                                 <option>--Select Membertype--</option>
                                                                 {this.state.member_data.map((data) => 
                                                                     <option value={data.slno}>{data.memberType}</option>             
@@ -264,34 +276,34 @@ class Share extends Component{
                                                                 <label class="control-label" for="per_share_value">Per Share Value</label>
                                                                 <Form.Item name="persharevalue" 
                                                                     rules={[{ required: true, message: "Please enter per share value" },{pattern:/^[1-9]$/, message:"Share value should be greter than zero"}]}>
-                                                                    <Input type='number' class="form-control" autocomplete="off" placeholder="Enter Per Share value" name="persharevalue" value={this.state.persharevalue} onChange={this.handleChange} />
+                                                                    <Input type='text' class="form-control" autocomplete="off" placeholder="Enter Per Share value" name="persharevalue" value={this.state.persharevalue} onChange={this.handleChange} />
                                                                 </Form.Item>
                                                                 {/* {this.state.errors && <div style={{color:"red"}}>{this.state.errors.shareError}</div>} */}
                                                             </div>
-                                                        </Form>
-                                                        <Form ref={this.formRef}>
+                                                        {/* </Form>
+                                                        <Form ref={this.formRef}> */}
                                                             <div class="form-group col-md-3 col-sm-3">
                                                                 <label class="control-label" for="per_share_value">Minimum Shares</label>
                                                                 <Form.Item name="no_of_units" 
                                                                     rules={[{ required: true, message: "Please enter Minimum share" },{pattern:/^[1-9]$/, message:"Shares should be greter than zero"}]}>
-                                                                <Input type='number' class="form-control" autocomplete="off" placeholder="Enter Minimum Share" type="number" name="min_share" value={this.state.min_share} onChange={this.handleChange} />
+                                                                <Input type='number' class="form-control" autocomplete="off" placeholder="Enter Minimum Share" type="text" name="min_share" value={this.state.min_share} onChange={this.handleChange} />
                                                                 
                                                                 </Form.Item>
                                                                 {/* {this.state.errors && <div style={{color:"red"}}>{this.state.errors.MinshareError}</div>} */}
                                                             </div>
-                                                        </Form>
-                                                        <Form ref={this.formRef}>
+                                                        {/* </Form>
+                                                        <Form ref={this.formRef}> */}
                                                             <div class="form-group col-md-3 col-sm-3">
                                                                 <label class="control-label" for="per_share_value">Maximum Shares</label>
                                                                 <Form.Item name="no_of_units" 
                                                                     rules={[{ required: true, message: "Please enter maximum share" },{pattern:/^[1-9]$/, message:"Shares should be greter than zero"}]}>
-                                                                <Input type='number' class="form-control" autocomplete="off" placeholder="Enter Maximum Share" type="number" name="max_share" value={this.state.max_share} onChange={this.handleChange} />
+                                                                <Input type='number' class="form-control" autocomplete="off" placeholder="Enter Maximum Share" type="text" name="max_share" value={this.state.max_share} onChange={this.handleChange} />
                                                                     
                                                                 </Form.Item>
                                                                 {/* {this.state.errors && <div style={{color:"red"}}>{this.state.errors.MaxshareError}</div>} */}
                                                             </div>
-                                                        </Form>
-                                                        <Form ref={this.formRef}>
+                                                        {/* </Form>
+                                                        <Form ref={this.formRef}> */}
                                                             <div class="form-group col-md-3 col-sm-3">
                                                                 <label class="control-label" for="per_share_value">Dividend Declared</label>
                                                                 <Form.Item name="no_of_units" 

@@ -22,7 +22,7 @@ class Financialyear extends Component{
     }
 
     handleChange=(e)=>{
-        debugger
+         
         this.setState({[e.target.name]:e.target.value})
     }
     
@@ -49,7 +49,7 @@ class Financialyear extends Component{
 
       // create data
       handleSubmit=async()=>{ 
-        debugger
+         
         // const errors=this.validate();
         // this.setState({errors})
         // if(errors) return;
@@ -63,12 +63,14 @@ class Financialyear extends Component{
             api.post(`master/financialYear/create`, params)       
             .then(res => {
                 console.log(res);
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);         
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);   
             })
         }catch (errorInfo) {
@@ -85,20 +87,22 @@ class Financialyear extends Component{
             api.post(`master/financialYear/update`, params)
             .then(res => {      
                 console.log(res)
-                // message.success(res.data.data);
-                // setTimeout(function(){window.location.reload(); }, 1000);				
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                setTimeout(function(){window.location.reload(); }, 1000);				
             })
             .catch(err=>{
                 console.log(err);
-                // message.error(err.response.data.message);
-                // setTimeout(function(){window.location.reload(); }, 1000);   
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
+                setTimeout(function(){window.location.reload(); }, 1000);   
             })
         }
     }
         
     //get financialyear data
     getfinancialyearList = () => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/financialYear/get',
@@ -132,12 +136,14 @@ class Financialyear extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -149,7 +155,7 @@ class Financialyear extends Component{
 
     // edit data
     getyearbyslno= (slno) => {
-        debugger
+         
         var config = {
             method: 'post',
             url: 'master/financialYear/getBySlno',
@@ -198,7 +204,7 @@ class Financialyear extends Component{
                                                             <div class="form-group col-md-3 col-sm-3">
                                                                 <label class="control-label" style={{fontSize:"16px"}}>From Year<span style={{color:"red"}}>*</span></label>
                                                                 <Form.Item name="fromYear"  
-                                                                    rules={[{ required: true, message: "Please enter From Year" },{pattern:/^[1-9]{4}$/, message:"Numbers should not greater than 4",maxlength:"4"}]}>
+                                                                    rules={[{ required: true, message: "Please enter From Year" },{pattern:/^[0-9]{4}$/, message:"Numbers should not greater than 4",maxlength:"4"}]}>
                                                                     <Input type='text' style={{width:"70%"}}  class="form-control" autocomplete="off" placeholder="From year" maxlength="4" name="fromYear" value={this.state.fromYear} onChange={this.handleChange} />
                                                                 </Form.Item>
                                                             </div>
@@ -207,7 +213,7 @@ class Financialyear extends Component{
                                                             <div class="form-group col-md-3 col-sm-3">
                                                                 <label class="control-label" style={{fontSize:"16px"}}>To Year<span style={{color:"red"}}>*</span></label>
                                                                 <Form.Item name="toYear"  
-                                                                    rules={[{ required: true, message: "Please enter To Year" },{pattern:/^[1-9]{4}$/, message:"Numbers should not greater than 4"}]}>
+                                                                    rules={[{ required: true, message: "Please enter To Year" },{pattern:/^[0-9]{4}$/, message:"Numbers should not greater than 4"}]}>
                                                                     <Input type='text' style={{width:"70%"}} class="form-control" autocomplete="off" maxlength="4" name="toYear" placeholder="To year" value={this.state.toYear} onChange={this.handleChange} />
                                                                 </Form.Item>
                                                             </div>

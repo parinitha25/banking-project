@@ -56,14 +56,14 @@ class CreateBranch extends Component{
 
     //change the isedit true or false
     handleToggle=(e)=>{
-        debugger
+         
         this.setState({checked:e.target.value});
         this.setState({isediting:e.target.value})
         
     }
     // create data
     handleSubmit=()=>{ 
-        debugger
+         
         // window.location.reload(false)
         if(this.state.editing===false){   
             let t=0;
@@ -96,7 +96,7 @@ class CreateBranch extends Component{
         }
         else
         {
-        debugger
+         
         const params = { 
             slno:this.state.branchobject.id,
             name:this.state.branchobject.name,
@@ -124,7 +124,7 @@ class CreateBranch extends Component{
 
     //reset the values
     // clear = () => {
-    //     debugger
+    //      
     //     // document.getElementById("myForm").reset(); 
     //     this.setState({
     //         name: ""
@@ -155,7 +155,7 @@ class CreateBranch extends Component{
 
     //get taluk data
     getbranchList = () => {
-    debugger
+     
         var config = {
             method: 'post',
             url: 'master/branch/get',
@@ -221,7 +221,7 @@ class CreateBranch extends Component{
     }
     // edit data
      getbranchbyslno= (slno) => {
-         debugger
+          
         var config = {
             method: 'post',
             url: 'master/branch/getBySlno',

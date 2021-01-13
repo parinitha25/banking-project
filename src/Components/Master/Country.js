@@ -43,7 +43,6 @@ class Country extends Component{
 
     //create the data
     handleSubmit=()=>{
-        debugger
         const errors=this.validate();
         this.setState({errors})
         if(errors) return;
@@ -54,12 +53,12 @@ class Country extends Component{
             api.post(`master/country/create`, params)      
             .then(res =>{     
                 this.setState({editing:false})
-                message.success(res.data.data);
+                message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload();}, 1000);
             })
             .catch(err=>{
                 console.log(err)
-                message.error(err.response.data.message);
+                message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
                 setTimeout(function(){window.location.reload();}, 1000);
             })
         }
@@ -72,12 +71,14 @@ class Country extends Component{
         }    
         api.post(`master/country/update`, params)
             .then(res => {      
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);
                 this.getCountryList();		
             })
             .catch(err=>{
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);     
             })
         }
@@ -140,11 +141,13 @@ class Country extends Component{
                     }
                 };
                 api(config).then(res => {  
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -157,9 +160,9 @@ class Country extends Component{
     render(){
         return(
             <div style={{backgroundColor:"#eeeeee"}}>
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-2 col-sm-2"></div>
+                        <div className="col-md-1 col-sm-1"></div>
                         <div className="col-md-10 col-sm-10 res">
                             <h4>Country</h4>
                             <p style={{backgroundColor:"#d3d3d3",paddingLeft:"10px"}}>Country</p>
@@ -224,6 +227,7 @@ class Country extends Component{
                                 </div>
                             </div>
                         </div>
+                        <div className="col-md-1 col-sm-1"></div>
                     </div>
                 </div>
             </div>

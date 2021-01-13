@@ -72,12 +72,14 @@ class Taluk extends Component{
             api.post(`master/taluk/create`, params)       
             .then(res => {
                 console.log(res);
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);         
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload();}, 1000);   
             })
         }
@@ -92,12 +94,14 @@ class Taluk extends Component{
             api.post(`master/taluk/update`, params)
             .then(res => {      
                 console.log(res)
-                message.success(res.data.data);
+                 message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);				
             })
             .catch(err=>{
                 console.log(err);
-                message.error(err.response.data.message);
+                 message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                 setTimeout(function(){window.location.reload(); }, 1000);   
             })
         }
@@ -176,12 +180,14 @@ class Taluk extends Component{
                 };
                 api(config).then(res => {  
                     console.log(res.data)
-                    message.success(res.data.data);
+                     message.success({content: (res.data.data),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);     
                 })
                 .catch(err=>{
                     console.log(err);
-                    message.error(err.response.data.message);
+                     message.error({content: (err.response.data.message),style: { textAlign: "center" ,marginTop:"100px"},});
+
                     setTimeout(function(){window.location.reload(); }, 1000);   
                 })
             },
@@ -227,9 +233,9 @@ class Taluk extends Component{
                                                 <div className="panel-group" style={{marginBottom: "8px"}}>
                                                     <div className="row" style={{padding:"10px"}}>
                                                         <div className="form-group col-md-3 col-sm-3">
-                                                            <label className="control-label" for="city">State</label>
+                                                            <label className="control-label" for="city">State<span style={{color:"red"}}>*</span></label>
                                                                 <select value={this.state.state} onChange={this.handleChangestate} className="form-control">
-                                                                    <option>Select State</option>
+                                                                    <option>--Select State--</option>
                                                                     {this.state.state_data.map((data) => 
                                                                         <option value={data.slno}>{data.state}</option>
                                                                     )}
@@ -237,9 +243,9 @@ class Taluk extends Component{
                                                                 {this.state.errors && <div style={{color:"red"}}>{this.state.errors.stateError}</div>}
                                                         </div>
                                                         <div className="form-group col-md-3 col-sm-3">
-                                                            <label className="control-label" for="city">District</label>
+                                                            <label className="control-label" for="city">District<span style={{color:"red"}}>*</span></label>
                                                                 <select value={this.state.district} onChange={this.handleChangedistrict} className="form-control">
-                                                                    <option>Select District</option>
+                                                                    <option>--Select District--</option>
                                                                     {this.state.district_data.map((data) => 
                                                                     <option value={data.slno}>{data.district}</option>
                                                                     )}
@@ -247,7 +253,7 @@ class Taluk extends Component{
                                                                 {this.state.errors && <div style={{color:"red"}}>{this.state.errors.districtError}</div>}						
                                                         </div>
                                                         <div className="form-group col-md-3 col-sm-3">
-                                                            <label className="control-label" for="city">Taluk</label>
+                                                            <label className="control-label" for="city">Taluk<span style={{color:"red"}}>*</span></label>
                                                             <input   class="form-control"   placeholder="Enter State" type="text" name="taluk" value={this.state.taluk} onChange={this.handleChange}/> 
                                                             {this.state.errors && <div style={{color:"red"}}>{this.state.errors.talukError}</div>}
                                                         </div>

@@ -36,3 +36,6 @@
     transform: rotate(360deg);
   }
 }
+.ant-form-item .ant-select, .ant-form-item .ant-cascader-picker{
+  width: 72%;
+}
